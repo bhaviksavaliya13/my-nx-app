@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { TailwindModule } from '../tailwind/tailwind.module';
 
 @NgModule({
   declarations: [],
@@ -10,8 +11,9 @@ import { DashboardModule } from '../dashboard/dashboard.module';
     DashboardModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TailwindModule,
   ],
-  providers: []
+  providers: [],
 })
 export class CoreModule {}
