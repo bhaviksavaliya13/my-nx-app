@@ -121,10 +121,10 @@
         <span>{{userName}}</span>
         <div class="user-footer">
           <div class="pull-left">
-            <a routerLink="/portal/profile" class="btn btn-default btn-flat">Profile</a>
+            <a routerLink="/profile" class="btn btn-default btn-flat">Profile</a>
           </div>
           <div class="pull-right">
-            <a class="btn btn-default btn-flat">Sign out</a>
+            <a (click)="signOut()" class="btn btn-default btn-flat">Sign out</a>
           </div>
         </div>
       </div>

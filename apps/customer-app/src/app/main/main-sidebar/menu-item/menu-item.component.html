@@ -9,7 +9,7 @@
 </a>
 <ul class="nav nav-pills nav-sidebar flex-column" *ngIf="hasSubMenuItems() && isMenuOpen">
     <li class="nav-item" *ngFor="let subMenuItem of menuItem.subMenuItems">
-        <a routerLink="{{ subMenuItem.redirectUrl }}" class="nav-link">
+        <a routerLink="/{{ subMenuItem.redirectUrl }}" class="nav-link">
             <i class="{{ subMenuItem.icon }}" aria-hidden="true"></i>
             <p>
                 {{ subMenuItem.title }}

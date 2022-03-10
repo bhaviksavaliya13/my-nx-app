@@ -1,28 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../core/authentication/auth.service';
+import { appRoutingURL } from '../shared/configs/app-routing-url.config';
+import { LoaderService } from '../shared/services/loader/loader.service';
+import { LoginModel } from './login.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService, LoaderService],
 })
 export class LoginComponent implements OnInit {
-  public userName: string = '';
-  public password: string = '';;
+  public userName = '';
+  public password = '';
   loginForm: any;
   loading = false;
   submitted = false;
-  returnUrl: string = '';;
+  returnUrl = '';;
   loginModel: any;
-  userNameRequiredError: string = '';;
-  passwordRequiredError: string = '';;
+  userNameRequiredError = '';;
+  passwordRequiredError = '';;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private loaderService: LoaderService
   ) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate([
+        appRoutingURL.DASHBOARD_PAGE,
+      ]);
+    }
   }
 
   ngOnInit() {
@@ -53,14 +65,17 @@ export class LoginComponent implements OnInit {
     return !(this.userNameRequiredError || this.passwordRequiredError);
   }
 
-  login() {
+  async login() {
+    await this.authService.login(this.loginModel);
     // stop here if form is invalid
-    if (this.isValid()) {
-      this.submitted = true;
-      this.loading = true;
-      // this.loginModel.userName = this.controls.userName.value;
-      // this.loginModel.password = this.controls.password.value;
-      this.router.navigate(['dashboard']);
-    }
+    // if (this.isValid()) {
+    //   this.loaderService.show();
+    //   this.submitted = true;
+    //   this.loading = true;
+    //   this.loginModel = new LoginModel();
+    //   this.loginModel.userName = this.controls.userName.value;
+    //   this.loginModel.password = this.controls.password.value;
+    //   this.authService.login(this.loginModel);
+    // }
   }
 }
